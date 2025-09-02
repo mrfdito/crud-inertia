@@ -35,14 +35,20 @@ export default function Create() {
                         className="w-full rounded border p-2"
                         required
                     />
-                    <input
-                        name="jurusan"
-                        placeholder="Jurusan"
-                        value={data.jurusan}
-                        onChange={handleChange}
-                        className="w-full rounded border p-2"
-                        required
-                    />
+                    <select name="jurusan" value={data.jurusan} onChange={handleChange} className="w-full rounded border p-2">
+                        <option value="">Pilih Jurusan</option>
+                        <option value="Ilmu Komputer">Ilmu Komputer</option>
+                        <option value="Teknik Elektro">Teknik Elektro</option>
+                        <option value="Hukum">Hukum</option>
+                        <option value="Akuntansi">Akuntansi</option>
+                        <option value="Manajemen">Manajemen</option>
+                        <option value="Psikologi">Psikologi</option>
+                        <option value="Sastra Inggris">Sastra Inggris</option>
+                        <option value="Fisika">Fisika</option>
+                        <option value="Matematika">Matematika</option>
+                        <option value="Biologi">Biologi</option>
+                    </select>
+
                     <input
                         type="number"
                         name="tahun_masuk"
