@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\PublicController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -17,6 +18,12 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+// Halaman hasil pencarian
+Route::get('/cari-mahasiswa', [App\Http\Controllers\PublicController::class, 'cariMahasiswa']);
+
+// Halaman detail mahasiswa
+Route::get('/mahasiswa/{id}', [App\Http\Controllers\PublicController::class, 'detailMahasiswa']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -54,4 +61,4 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [MahasiswaController::class, 'destroy'])->name('admin.mahasiswa.destroy');
     });
 });
-require __DIR__.'/auth.php';
+
