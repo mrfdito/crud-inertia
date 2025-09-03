@@ -19,19 +19,6 @@ const getStatusBadge = (status) => {
     }
 };
 
-// Mock data for demonstration, replace with your actual props
-const MOCK_PROPS = {
-    mahasiswa: {
-        id: 1,
-        nama: 'Budi Santoso',
-        nim: '12345678',
-        jurusan: 'Teknik Informatika',
-        tahun_masuk: '2020',
-        status: 'Aktif',
-        tahun_selesai: null,
-    },
-};
-
 export default function DetailMahasiswa({ mahasiswa: initialMahasiswa }) {
     const { mahasiswa } = { mahasiswa: initialMahasiswa || MOCK_PROPS.mahasiswa };
 

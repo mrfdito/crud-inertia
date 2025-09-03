@@ -1,3 +1,4 @@
+import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 // SVG Icons
@@ -17,27 +18,13 @@ const BackIcon = () => (
     </svg>
 );
 
-// Mock data for demonstration, replace with your actual props
-const MOCK_PROPS = {
-    mahasiswa: [
-        { id: 1, nama: 'Budi Santoso', nim: '12345678' },
-        { id: 2, nama: 'Citra Lestari', nim: '87654321' },
-    ],
-    query: 'Budi',
-};
-
-export default function CariMahasiswa({ mahasiswa: initialMahasiswa, query: initialQuery }) {
-    // Use mock data if props are not provided
-    const { mahasiswa, query } = {
-        mahasiswa: initialMahasiswa || MOCK_PROPS.mahasiswa,
-        query: initialQuery || MOCK_PROPS.query,
-    };
-
-    const [search, setSearch] = useState(query || '');
+export default function CariMahasiswa() {
+    const { mahasiswa: initialMahasiswa, query: initialQuery } = usePage().props;
+    const [search, setSearch] = useState(initialQuery || '');
 
     return (
         <div className="relative min-h-screen w-full bg-gray-50 text-gray-800 antialiased">
-            {/* Subtle Background Pattern (same as Welcome page) */}
+            {/* Background Pattern */}
             <div className="absolute inset-0 z-0 opacity-50">
                 <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -50,23 +37,23 @@ export default function CariMahasiswa({ mahasiswa: initialMahasiswa, query: init
                 </svg>
             </div>
 
-            {/* Main Container */}
+            {/* Main Content */}
             <div className="relative z-10 mx-auto max-w-4xl p-6 sm:p-8">
                 {/* Back button */}
                 <header className="mb-8">
-                    <a
+                    <Link
                         href="/"
                         className="inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-100"
                     >
                         <BackIcon />
                         Kembali
-                    </a>
+                    </Link>
                 </header>
 
                 <main>
                     <h1 className="mb-2 text-3xl font-bold text-slate-900">Hasil Pencarian</h1>
                     <p className="mb-8 text-lg text-gray-500">
-                        Menampilkan hasil untuk: <span className="font-semibold text-gray-700">"{query}"</span>
+                        Menampilkan hasil untuk: <span className="font-semibold text-gray-700">"{initialQuery}"</span>
                     </p>
 
                     {/* Search bar */}
@@ -94,19 +81,21 @@ export default function CariMahasiswa({ mahasiswa: initialMahasiswa, query: init
 
                     {/* Results List */}
                     <div className="rounded-2xl border border-gray-200/50 bg-white/70 p-6 shadow-xl backdrop-blur-md">
-                        {mahasiswa.length === 0 ? (
+                        {!initialQuery || initialQuery.trim() === '' ? (
+                            <p className="py-8 text-center text-gray-500">Masukkan data mahasiswa terlebih dahulu.</p>
+                        ) : initialMahasiswa.length === 0 ? (
                             <p className="py-8 text-center text-gray-500">Maaf, mahasiswa tidak ditemukan.</p>
                         ) : (
                             <ul className="space-y-4">
-                                {mahasiswa.map((m) => (
+                                {initialMahasiswa.map((m) => (
                                     <li
                                         key={m.id}
                                         className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 hover:border-blue-300 hover:shadow-md"
                                     >
-                                        <a href={`/mahasiswa/${m.id}`} className="block">
+                                        <Link href={`/mahasiswa/${m.id}`} className="block">
                                             <p className="text-lg font-semibold text-blue-700">{m.nama}</p>
                                             <p className="text-gray-500">{m.nim}</p>
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
